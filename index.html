@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>To do List</title>
+</head>
+<body>
+    
+    <header class="header">
+        <h1>To-do List</h1>
+    </header>
+
+    <main class="main">
+        <div class="navbar">
+            <div class="navbar-main">
+                <button class="button-nav active">All tasks</button>
+                <button class="button-nav">Today</button>
+            </div>
+            <h3 class="project-list-title">Your project</h3>
+            <div id="project-list">
+                <!-- <button class="button-nav">Work</button>
+                <button class="button-nav">Grocery</button>
+                <button class="button-nav">Gym</button> -->
+            </div>
+            <form action="" data-new-project-form>
+                <input 
+                type="text"
+                class="new project"
+                data-new-project-input
+                placeholder="New project name"
+                aria-label="New project name"/>
+                <button class="btn project" data-create-project aria-label="create new project">+</button>
+            </form>
+        </div>
+
+        <div class="content">
+            <div class="task-header">
+                <h2 class="todo-title">Work</h2>
+            </div>
+
+            <div class="task-body">
+                <div class="tasks-container">
+                    <div class="tasks">
+                    <input type="checkbox" id="task-1"/>
+                    <label for="task-1">finish work report</label>
+                </div>
+
+                <div class="task-description">
+                    <div class="task-date"> 22/11/2023</div>
+                </div>
+                </div>
+
+                <div class="tasks-container medium">
+                    <div class="tasks">
+                    <input type="checkbox" id="task-2"/>
+                    <label for="task-2">Write an intensive code for todo list</label>
+                </div>
+
+                <div class="task-description">
+                    <div class="task-date">22/11/2023</div>
+                </div>
+                </div>
+
+                <div class="tasks-container low">
+                    <div class="tasks">
+                    <input type="checkbox" id="task-3"/>
+                    <label for="task-3">finish work report</label>
+                </div>
+
+                <div class="task-description">
+                    <div class="task-date">22/11/2023</div>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="new-task-creator">
+                <form action="">
+                    <input 
+                    data-create-task-input
+                    type="text"
+                    class="new task"
+                    placeholder="New task name"
+                    aria-label="new task name"/>
+
+                    <button class="btn task" data-create-task>+</button>
+                </form>
+            </div>
+
+            <div class="delete-content">
+                <button class="btn delete">Clear completed tasks</button>
+                <button class="btn delete" data-project-delete>Delete project</button>
+                
+            </div>
+
+        </div>
+    </main>
+
+    <footer> 
+        <p>Copyright DeanNguyen
+        <a href="https://github.com/DeanNguyen98">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm2 4a2 2 0 1 0-2.95 1.76 1.87 1.87 0 0 0-.32.24H3.75a.75.75 0 0 0 0 1.5h2.363l-.607 5.67a.75.75 0 1 0 1.49.16l.25-2.33h1.508l.25 2.33a.75.75 0 0 0 1.492-.16L9.888 7.5h2.362a.75.75 0 0 0 0-1.5H9.27a1.98 1.98 0 0 0-.32-.24A2 2 0 0 0 10 4Z"></path></svg>
+        </a>
+    </p>
+
+    </footer>
+
+
+    <script src="main.js"></script>
+</body>
+</html>
