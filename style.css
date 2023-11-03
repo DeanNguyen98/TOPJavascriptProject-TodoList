@@ -1,11 +1,22 @@
 :root {
-    --grey: #575656;
-    --light-grey: #7B7676;
+    --grey: cornflowerblue;
+    --light-grey: whitesmoke;
     --light-blue: #A8A8A8;
     --white: #FCFCFC;
     
 
 }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+}
+
 
 body {
     margin: 0;
@@ -35,7 +46,7 @@ body {
     padding: 2rem;
     line-height: 1.2;
     font-size: 1.1rem;
-    background-color: var(--light-blue);
+    background-color: var(--light-grey);
     min-width: 200px;
     width: 400px;
 }
@@ -52,12 +63,12 @@ body {
 }
 
 .button-nav:hover {
-    color: white;
+    color: black;
     opacity: 0.7
 }
 
 .active {
-    background-color:var(--light-grey);
+    background-color:var(--light-blue);
     border-radius: 10px;
 }
 
@@ -69,6 +80,10 @@ body {
     background: none;
     border: 0;
     border-bottom: 1px solid black;
+}
+
+.new:focus {
+    border-bottom: 2px solid black;
 }
 
 .btn {
@@ -95,10 +110,16 @@ body {
     justify-content: space-between;
     width: 90%;
     padding: .7rem;
-    background-color: var(--light-blue);
+    background-color: var(--grey);
     margin-bottom: .5rem;
     border-radius: 10px;
+    opacity: 1;
     
+}
+
+.remove {
+    opacity: 0;
+    transition: .5s ease-out; 
 }
 
 .task-description {
@@ -156,3 +177,17 @@ footer {
     background-color: #7B7676;
 }
 
+.fade-out {
+    animation: fade-out-left .5s forwards;
+}
+
+@keyframes fade-out-left {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
