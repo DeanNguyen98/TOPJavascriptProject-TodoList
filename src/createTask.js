@@ -1,14 +1,9 @@
 import { projectlist , activeId, saveToLocalStorage} from "./createProject";
 
-function CreateNewTask (name) {
-    return {name: name, id: Date.now().toString(),}
+function CreateNewTask (name, complete) {
+    return {name: name, id: Date.now().toString(), complete: false}
 }
 
-const TaskEventListener =  () => {
-    const newTaskform = document.querySelector("[data-create-task-form]");
-    newTaskform.addEventListener("submit", (processTaskInput));
-
-}
 const processTaskInput = (e) => {
     const taskinput = document.querySelector("[data-create-task-input]");
     e.preventDefault();
@@ -24,18 +19,20 @@ const processTaskInput = (e) => {
     }
     activeProject.tasks.push(newTask);
     taskinput.value = null;
-    renderTask(activeProject);
+    renderTask(activeProject.tasks);
     saveToLocalStorage();
 }
 
 function createTasktemplate (task) {
     const taskcontainer = document.createElement("div");
     taskcontainer.classList.add("tasks-container");
+    taskcontainer.id = `${task.id} + container`;
     const taskbox = document.createElement("div");
     taskbox.classList.add("tasks");
     const taskcheckbox = document.createElement("input");
     taskcheckbox.type = "checkbox";
     taskcheckbox.id = task.id;
+    taskcheckbox.checked = task.complete;
     const tasklabel = document.createElement("label");
     tasklabel.htmlFor = task.id;
     tasklabel.textContent = task.name;
@@ -45,15 +42,38 @@ function createTasktemplate (task) {
     return taskcontainer;
 }
 
-function renderTask (activeProject) {
+function renderTask (tasks) {
     const taskbody = document.querySelector(".task-body");
     taskbody.innerText = "";
-    activeProject.tasks.forEach(task => {
-        createTasktemplate(task);
+    tasks.forEach(task => {
+        createTasktemplate(task, false);
         taskbody.appendChild(createTasktemplate(task));
     })
 }
 
+const changeTaskcondition = (e) => {
+    if (e.target.tagName.toLowerCase() === "input") {
+        const activeProject = projectlist.find(project => project.id === activeId);
+        const activeTask = activeProject.tasks.find(task => task.id === e.target.id);
+        activeTask.complete = e.target.checked;
+        saveToLocalStorage();
+    }
+}
+
+const clearCompletedTask = () => {
+    const activeProject = projectlist.find(project => project.id === activeId);
+    const completedTasks = activeProject.tasks.filter(task => task.complete);
+    completedTasks.forEach(task => {
+        const taskElement = document.getElementById(`${task.id} + container`);
+        taskElement.classList.add("fade-out");
+    });
+    setTimeout(() => {
+        activeProject.tasks = activeProject.tasks.filter(task => !task.complete);
+        renderTask(activeProject.tasks);
+        saveToLocalStorage();
+    }, 500); 
+    //setting the delay to render the taskList to be the same as the fadeout transition for completedTask.
+}
 
 
-export {TaskEventListener, renderTask};
+export {renderTask, processTaskInput, changeTaskcondition, clearCompletedTask};
