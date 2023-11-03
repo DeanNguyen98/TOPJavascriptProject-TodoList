@@ -1,13 +1,16 @@
+import { renderTask } from "./createTask";
+
 let defaultProjectList=[];
 let projectlist = localStorage.getItem("myProjectList");
     projectlist = JSON.parse(projectlist || JSON.stringify(defaultProjectList));
 let activeId;
+
 const ProjectEventListener = () => {
     const addprojectform = document.querySelector("[data-new-project-form]");
     addprojectform.addEventListener("submit" , (processProjectInput));
 
-    const projectcontainer = document.getElementById("project-list");
-    projectcontainer.addEventListener("click", (getActiveProject));
+    const navbarcontainer = document.querySelector(".navbar");
+    navbarcontainer.addEventListener("click", (getActiveProject));
 
     const deleteProjectBtn = document.querySelector("[data-project-delete]");
     deleteProjectBtn.addEventListener("click", (removeProject));
@@ -25,6 +28,8 @@ function CreatenewProject (name) {
 const removeProject = () => {
     projectlist = projectlist.filter(project => project.id !== activeId);
     renderProject(projectlist);
+    const taskbody = document.querySelector(".task-body");
+    taskbody.innerText = "";
     saveToLocalStorage(); 
     }
 
@@ -38,8 +43,8 @@ const processProjectInput = (e) => {
         };
         const newProject = CreatenewProject(projectInput.value);
         projectlist.push(newProject);
-        console.log(projectlist);
         renderProject(projectlist);
+        console.log(projectlist);
         saveToLocalStorage();
         projectInput.value = null;
 }
@@ -56,8 +61,16 @@ const renderProject = (projectlist) => {
     const projectContainer = document.getElementById("project-list");
     projectContainer.innerText = "";
     projectlist.forEach(project => {
-        createProjecttemplate(project);
-        projectContainer.appendChild(createProjecttemplate(project));
+        const projectbutton = createProjecttemplate(project);
+        projectContainer.appendChild(projectbutton);
+
+        //Adding the renderTask function to render the task when click;
+        
+        projectbutton.addEventListener("click", () => {
+            renderTask(project);
+            const projectTitle = document.querySelector(".todo-title");
+            projectTitle.innerText = project.name;
+        })
     })
 }
 
@@ -74,4 +87,4 @@ const getActiveProject = (e) => {
 
 }
 
-export {ProjectEventListener, renderProject};
+export {ProjectEventListener, projectlist, activeId, saveToLocalStorage};
