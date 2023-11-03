@@ -5,18 +5,6 @@ let projectlist = localStorage.getItem("myProjectList");
     projectlist = JSON.parse(projectlist || JSON.stringify(defaultProjectList));
 let activeId;
 
-const ProjectEventListener = () => {
-    const addprojectform = document.querySelector("[data-new-project-form]");
-    addprojectform.addEventListener("submit" , (processProjectInput));
-
-    const navbarcontainer = document.querySelector(".navbar");
-    navbarcontainer.addEventListener("click", (getActiveProject));
-
-    const deleteProjectBtn = document.querySelector("[data-project-delete]");
-    deleteProjectBtn.addEventListener("click", (removeProject));
-    renderProject(projectlist);
-}
-
 function saveToLocalStorage(){
     localStorage.setItem("myProjectList", JSON.stringify(projectlist));
 }
@@ -67,9 +55,10 @@ const renderProject = (projectlist) => {
         //Adding the renderTask function to render the task when click;
         
         projectbutton.addEventListener("click", () => {
-            renderTask(project);
+            renderTask(project.tasks);
             const projectTitle = document.querySelector(".todo-title");
             projectTitle.innerText = project.name;
+            console.log(project.tasks)
         })
     })
 }
@@ -83,8 +72,17 @@ const getActiveProject = (e) => {
         e.target.classList.add("active");
         activeId = e.target.dataset.listId;
         console.log(activeId);
+
+        //disable delete project button for all Task and today Button on navbar
+        if (e.target.classList.contains("All-task") || e.target.classList.contains("today-task")) {
+            const deleteProjectBtn = document.querySelector("[data-project-delete]");
+            deleteProjectBtn.innerText = "";
+        } else {
+            const deleteProjectBtn = document.querySelector("[data-project-delete]");
+            deleteProjectBtn.innerText = "Delete Project";
+        }
     }
 
 }
 
-export {ProjectEventListener, projectlist, activeId, saveToLocalStorage};
+export {getActiveProject, removeProject, processProjectInput, projectlist, activeId, saveToLocalStorage, renderProject};
