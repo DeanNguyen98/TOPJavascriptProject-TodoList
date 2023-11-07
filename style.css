@@ -45,7 +45,7 @@ body {
     flex-direction: column;
     padding: 2rem;
     line-height: 1.2;
-    font-size: 1.1rem;
+    font-size: inherit;
     background-color: var(--light-grey);
     min-width: 200px;
     width: 400px;
@@ -90,7 +90,7 @@ body {
 .btn {
     background: none;
     border: none;
-    font-size: 1.1rem;
+    font-size: inherit;
     font-weight: 700;
     cursor: pointer;
 }
@@ -103,7 +103,7 @@ body {
     padding: 1rem;
     width: 100%;
     margin-left: 1rem;
-    font-size: 1.2rem;
+    font-size: inherit;
 }
 
 .tasks-container {
@@ -169,7 +169,6 @@ body {
 }
 
 footer {
-    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
@@ -182,6 +181,24 @@ footer {
     animation: fade-out-left .5s forwards;
 }
 
+.project-list {
+    display: block;
+}
+
+.toggle-button {
+    color: #333;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    display: none; /* Hide by default for all screens */
+  }
+
+  #project-title {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+  }
+
 @keyframes fade-out-left {
     from {
         opacity: 1;
@@ -190,5 +207,43 @@ footer {
     to {
         opacity: 0;
         transform: translateX(100%);
+    }
+}
+@media screen and (max-width: 930px) {
+
+    body {
+        font-size: .7rem !important;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        font-size: inherit;
+        width: auto;
+    }
+
+    footer {
+        margin-top: 2rem;
+    }
+
+    .tasks-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .toggle-button {
+        display: block;
+    }
+
+    #project-list {
+        display: none;
+    }
+
+    #project-list.show {
+        display: block;
+    }
+
+    footer {
+        position: absolute;
     }
 }
