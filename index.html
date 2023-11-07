@@ -76,14 +76,21 @@
 
             </div>
 
-            <div class="new-task-creator">
-                <form action="" data-create-task-form>
+            <div>
+                <form action="" data-create-task-form class="new-task-creator">
                     <input 
                     data-create-task-input
                     type="text"
                     class="new task"
                     placeholder="New task name"
                     aria-label="new task name"/>
+                    <input data-create-task-date
+                    type="date"
+                    class="new date"
+                    placeholder="Due date"
+                    aria-label="new task date"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"/>
 
                     <button class="btn task" data-create-task>+</button>
                 </form>
