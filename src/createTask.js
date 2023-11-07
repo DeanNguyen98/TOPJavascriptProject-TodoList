@@ -1,17 +1,26 @@
 import { projectlist , activeId, saveToLocalStorage} from "./createProject";
-
-function CreateNewTask (name, complete) {
-    return {name: name, id: Date.now().toString(), complete: false}
+import {format} from "date-fns";
+function CreateNewTask (name, date) {
+    return {name: name, id: Date.now().toString(), complete: false, date: date}
 }
 
 const processTaskInput = (e) => {
     const taskinput = document.querySelector("[data-create-task-input]");
+    const taskdateinput = document.querySelector("[data-create-task-date]")
     e.preventDefault();
     if (taskinput.value === "") {
         alert("Task input cannot be empty");
         return;
     }
-    const newTask = CreateNewTask(taskinput.value);
+
+    if (taskdateinput.value === "") {
+        alert("Task due date cannot be empty");
+        return;
+    }
+
+    //format the date template using date-fns for easy reference
+    const newTask = CreateNewTask(taskinput.value, format(new Date(taskdateinput.value), "dd/MM/yyyy"));
+    //
     const activeProject = projectlist.find(project => project.id === activeId);
     if (activeProject === undefined) {
         alert("Please choose a project to add your task");
@@ -19,6 +28,7 @@ const processTaskInput = (e) => {
     }
     activeProject.tasks.push(newTask);
     taskinput.value = null;
+    taskdateinput.value = null;
     renderTask(activeProject.tasks);
     saveToLocalStorage();
 }
@@ -39,6 +49,10 @@ function createTasktemplate (task) {
     taskcontainer.appendChild(taskbox);
     taskbox.appendChild(taskcheckbox);
     taskbox.appendChild(tasklabel);
+    const taskdescription = document.createElement("div");
+    taskdescription.classList.add("task-description")
+    taskdescription.textContent = format(new Date(task.date), "dd/MM/yyyy");
+    taskcontainer.appendChild(taskdescription);
     return taskcontainer;
 }
 
@@ -58,6 +72,10 @@ const changeTaskcondition = (e) => {
         activeTask.complete = e.target.checked;
         saveToLocalStorage();
     }
+}
+
+const setTaskdate = () => {
+    
 }
 
 const clearCompletedTask = () => {
