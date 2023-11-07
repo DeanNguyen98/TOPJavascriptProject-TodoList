@@ -53,4 +53,16 @@ const displayTodayTask = () => {
     })
 }
 
+//javascript for toggle button for phone users 
+
+const toggleButton = document.querySelector(".toggle-button");
+const listcontainer = document.querySelector("#project-list");
+toggleButton.addEventListener("click", () => {
+    if (listcontainer.classList.contains("show")) {
+        listcontainer.classList.remove("show");
+    } else {
+        listcontainer.classList.toggle("show");
+    }
+  });
+
 export {ProjectEventListener, TaskEventListener, navbarEventListener };
