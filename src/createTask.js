@@ -51,7 +51,7 @@ function createTasktemplate (task) {
     taskbox.appendChild(tasklabel);
     const taskdescription = document.createElement("div");
     taskdescription.classList.add("task-description")
-    taskdescription.textContent = format(new Date(task.date), "dd/MM/yyyy");
+    taskdescription.textContent = task.date;
     taskcontainer.appendChild(taskdescription);
     return taskcontainer;
 }
@@ -60,8 +60,8 @@ function renderTask (tasks) {
     const taskbody = document.querySelector(".task-body");
     taskbody.innerText = "";
     tasks.forEach(task => {
-        createTasktemplate(task, false);
-        taskbody.appendChild(createTasktemplate(task));
+        const taskcontent = createTasktemplate(task, false);
+        taskbody.appendChild(taskcontent);
     })
 }
 
@@ -74,9 +74,6 @@ const changeTaskcondition = (e) => {
     }
 }
 
-const setTaskdate = () => {
-    
-}
 
 const clearCompletedTask = () => {
     const activeProject = projectlist.find(project => project.id === activeId);
