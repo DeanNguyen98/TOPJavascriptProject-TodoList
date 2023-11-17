@@ -22,14 +22,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Work Sans", sans-serif;
-    display: flex;
-    flex-direction:column;
     background-color: var(--white);
 }
 
 
 .header {
-    padding: 1rem;
+    padding: .6rem;
     background-color: var(--grey);
     color: white;
 
@@ -37,7 +35,7 @@ body {
 }
 .main {
     display: flex;
-    min-height: 84vh;
+    min-height: 84.5vh;
 }
 
 .navbar {
@@ -175,6 +173,7 @@ footer {
     display: flex;
     justify-content: center;
     background-color: #7B7676;
+
 }
 
 .fade-out {
